@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { styles } from './styles';
 
 
-export default function Login() {
+export default function Login({navigation}) {
 
     const [usuario, setUsuario] = useState('');
     const [senha, setSenha] = useState('');
@@ -34,6 +34,7 @@ export default function Login() {
 
                 if(usuario === 'admin' && senha === '1234'){
                     Alert.alert('Login efetuado com sucesso!')
+                    navigation.navigate("Home")
                     return
                 }
                 
