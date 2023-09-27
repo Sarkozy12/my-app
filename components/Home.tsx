@@ -1,11 +1,12 @@
 import { ScrollView } from "react-native"
 import { Text } from "@rneui/themed"
-import { Button, Divider } from "@rneui/base"
+import { Avatar, Button, Divider } from "@rneui/base"
 import { useEffect, useState } from "react"
 import axiosConfig from "../config/axios"
 import { ListItem } from "react-native-elements"
 import { ListItemContent } from "@rneui/base/dist/ListItem/ListItem.Content"
 import { ListItemTitle } from "@rneui/base/dist/ListItem/ListItem.Title"
+import { ListItemSubtitle } from "@rneui/base/dist/ListItem/ListItem.Subtitle"
 
 export default function Home ({ navigation}) {
     const [produtos, setProdutos] = useState([])
@@ -30,11 +31,17 @@ export default function Home ({ navigation}) {
             }
             {produtos.map((produto) =>
             (
-                <ListItem key={produto.id}>
+                <ListItem key={produto.id} onPress = {()=>{
+                    navigation.navigate("Produto",{produto})
+            }}>
+                    <Avatar source={{uri: produto.thumbnail}} />
                     <ListItemContent>
                         <ListItemTitle>
-                            <Text>{produto.title}</Text>
+                        {produto.title}
                         </ListItemTitle>
+                    <ListItemSubtitle>
+                        ${produto.price}
+                    </ListItemSubtitle>
                     </ListItemContent>
                 </ListItem>
             ))}
