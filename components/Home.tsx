@@ -1,25 +1,26 @@
 import { ScrollView } from "react-native"
 import { Text } from "@rneui/themed"
-import { Avatar, Button, ListItem } from "@rneui/base"
+import { Avatar, Button, Divider } from "@rneui/base"
 import { useEffect, useState } from "react"
 import axiosConfig from "../config/axios"
-import { Divider } from "react-native-elements"
+import { ListItem } from "react-native-elements"
 import { ListItemContent } from "@rneui/base/dist/ListItem/ListItem.Content"
 import { ListItemTitle } from "@rneui/base/dist/ListItem/ListItem.Title"
 import { ListItemSubtitle } from "@rneui/base/dist/ListItem/ListItem.Subtitle"
 
-export default function Home({ navigation }){
+export default function Home ({ navigation}) {
     const [produtos, setProdutos] = useState([])
 
-    useEffect(()=> {
-        axiosConfig.get('products').then((resposta)=>{
-            setProdutos(resposta.data.products)
-        })
-    },[])
+    useEffect (() => {
+        axiosConfig.get("/products").then((Response) => {
+            setProdutos(Response.data.products)
+    })
+}, [])
     return(
         <ScrollView>
             <Text h1>Home</Text>
             <Divider />
+            <Text h3>Produtos</Text>
             {
                 produtos.length <= 0 && (
                     <Text>Nenhum produto encontrado!</Text>
@@ -46,5 +47,5 @@ export default function Home({ navigation }){
                 () => navigation.navigate('Login')
             } />
         </ScrollView>
-    )
+        )
 }

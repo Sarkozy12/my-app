@@ -7,7 +7,7 @@ export default function Produto({route, navigation}){
         <>
         <Text h1>{produto.title}</Text>
         <Avatar source={{uri: produto.thumbnail}} size={250} />
-        <Text h2>${produto.price}</Text>
+        <Text h3>${produto.price}</Text>
         </>
     )
 }
