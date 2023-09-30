@@ -31,5 +31,11 @@ export const styles = StyleSheet.create({
       height: 250,
       resizeMode: 'contain',
       margin: 50,
+    },
+
+    heading: {
+      color: 'white',
+      fontSize: 28,
+      fontWeight: 'bold',
     }
   });
