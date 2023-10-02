@@ -7,8 +7,25 @@ export const styles = StyleSheet.create({
       backgroundColor: '#ff8c00',
       alignItems: 'center',
       justifyContent: 'flex-start',
-      marginTop: 40,
       resizeMode: 'cover'
+    },
+
+    sideBar: {
+      flex: 1,
+      width: "60%",
+      backgroundColor: '#ff8c00',
+      alignItems: 'flex-start',
+      justifyContent: 'flex-start',
+      alignSelf: 'flex-end'
+    },
+
+    socialIcons: {
+      flex: 1,
+      backgroundColor: '#ff8c00',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      resizeMode: 'cover',
+      flexDirection: 'row'
     },
   
     input: {
@@ -26,6 +43,12 @@ export const styles = StyleSheet.create({
       margin: 20,
     },
 
+    footerText: {
+      fontSize: 15,
+      fontWeight: 'bold',
+      margin: 20,
+    },
+
     logo: {
       width: 250,
       height: 250,
@@ -34,8 +57,18 @@ export const styles = StyleSheet.create({
     },
 
     heading: {
-      color: 'white',
-      fontSize: 28,
+      color: '#000',
+      fontSize: 24,
       fontWeight: 'bold',
-    }
+    },
+
+    barraPesquisa: {
+      color: "#ff8c00"
+    },
+
+    imagemHome: {
+      aspectRatio: 1.7,
+      width: '100%',
+      flex: 1,
+    },
   });
