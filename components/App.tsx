@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackActions } from '@react-navigation/routers';
 import Home from './Home';
 import Login from './Login';
+import SideBar from './menuSidebar';
 import Produto from './Produto';
 
 export default function App() {

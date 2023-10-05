@@ -1,13 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
 import { View, Button, TextInput, Alert, Image } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styles } from './styles';
+import * as SecureStore from 'expo-secure-store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function Login({navigation}) {
 
     const [usuario, setUsuario] = useState('');
     const [senha, setSenha] = useState('');
+
+    useEffect(() => {
+        SecureStore.getItemAsync('token')
+        .then((token) => {
+            if(token != null){
+                navigation.navigate('Home')
+            }
+        })
+    },[])
 
     return(
         <View 
@@ -32,7 +43,9 @@ export default function Login({navigation}) {
                 color="#000000"
                 onPress={() => {
 
-                if(usuario === 'admin' && senha === '1234'){
+                if(usuario === 'Admin' && senha === '1234'){
+                    SecureStore.setItemAsync('token','123456')
+                    AsyncStorage.setItem('user', 'Administrador')
                     Alert.alert('Login efetuado com sucesso!')
                     navigation.navigate("Home")
                     return

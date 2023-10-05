@@ -10,24 +10,35 @@ import { ListItemSubtitle } from "@rneui/base/dist/ListItem/ListItem.Subtitle"
 import { styles } from "./styles"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import Login from "./Login"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import * as SecureStore from 'expo-secure-store';
+import SideBar from "./menuSidebar"
+import sair from "../helpers/sair"
 
 const Imagem_URI = 'https://img.freepik.com/fotos-gratis/mulher-jovem-e-bonita-desportiva-a-treinar-no-ginasio_155003-41224.jpg?w=1380&t=st=1696191659~exp=1696192259~hmac=3b5f66d41a5593043816f60d463318b4d034f53cf45072dcd5b1d98793545d23'
 
-//const [SideBar, setSidebar] = useState(false)
+
 
 //const showSideBar = () => setSidebar(!SideBar)
 
 export default function Home ({ navigation}) {
     const [produtos, setProdutos] = useState([])
+    const [nomeUsuario, setNomeUsuario ] = useState('')
+    const [sideBar, setSidebar] = useState(false)
 
     useEffect (() => {
         axiosConfig.get("/products").then((Response) => {
             setProdutos(Response.data.products)
     })
+    AsyncStorage.getItem('user').then((user) => {
+        setNomeUsuario(user)
+    })
 }, [])
+
     return(
         <ScrollView style={{backgroundColor: 'grey'}}>
             <SafeAreaProvider>
+                <Text h1> Salve {nomeUsuario}</Text>
                 <Header
                     backgroundColor="#ff8c00"
                     leftComponent={
@@ -36,18 +47,34 @@ export default function Home ({ navigation}) {
                                 name="logout" 
                                 color={"#000"} 
                                 size={34}
-                                onPress={() => navigation.navigate(Login)}
+                                onPress={() => {
+                                    sair(navigation)
+                                }}
                             />
                         </View>
                     } 
-                    centerComponent={{ text: 'Ativa Fitness', style: styles.heading }}
+                    centerComponent={{ text: 'Ativa Fitness ', style: styles.heading }}
                     rightComponent={
                         <View>
                             <Icon 
                                 name="menu" 
                                 color={"#000"} 
                                 size={34}
+                                onPress={() => {
+                                    if (sideBar == false){
+                                        setSidebar(true)
+                                    }
+                                    else
+                                    {
+                                        setSidebar(false)
+                                    }
+                                }}
                             />
+                            {
+                                sideBar && (
+                                    <SideBar navigation={navigation}></SideBar>
+                                ) 
+                            }
                         </View>
                     }
                 />

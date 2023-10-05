@@ -1,5 +1,6 @@
 import { View } from "react-native";
 import { Icon, ListItem } from "react-native-elements";
+import sair from "../helpers/sair";
 
 
 export default function SideBar({navigation}){
@@ -30,12 +31,13 @@ export default function SideBar({navigation}){
             <ListItem>
                 <></>
             </ListItem>
-            <ListItem onPress={() => navigation.navigate('Login')} >
+            <ListItem onPress={() => {
+                sair(navigation)
+            }} >
                 <Icon name="logout" />
                     <ListItem.Content>
                         <ListItem.Title>Sair</ListItem.Title>
                     </ListItem.Content>
-                    <ListItem.Chevron />
             </ListItem>
         </View>
     )
