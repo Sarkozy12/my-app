@@ -9,20 +9,11 @@ import { ListItemTitle } from "@rneui/base/dist/ListItem/ListItem.Title"
 import { ListItemSubtitle } from "@rneui/base/dist/ListItem/ListItem.Subtitle"
 import { styles } from "./styles"
 import { SafeAreaProvider } from "react-native-safe-area-context"
-import Login from "./Login"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import * as SecureStore from 'expo-secure-store';
 import SideBar from "./menuSidebar"
 import sair from "../helpers/sair"
-import { createDrawerNavigator } from "@react-navigation/drawer"
-import { NavigationContainer } from "@react-navigation/native"
-import DrawerItens from '../constants/DrawerItens'
 
 const Imagem_URI = 'https://img.freepik.com/fotos-gratis/mulher-jovem-e-bonita-desportiva-a-treinar-no-ginasio_155003-41224.jpg?w=1380&t=st=1696191659~exp=1696192259~hmac=3b5f66d41a5593043816f60d463318b4d034f53cf45072dcd5b1d98793545d23'
-
-const Drawer = createDrawerNavigator();
-
-//const showSideBar = () => setSidebar(!SideBar)
 
 export default function Home ({ navigation}) {
     const [produtos, setProdutos] = useState([])
