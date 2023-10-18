@@ -32,7 +32,6 @@ export default function Home ({ navigation}) {
     return(
         <ScrollView style={{backgroundColor: 'grey'}}>
             <SafeAreaProvider>
-                <Text h1> Salve {nomeUsuario}</Text>
                 <Header
                     backgroundColor="#ff8c00"
                     leftComponent={
