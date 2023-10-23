@@ -1,5 +1,5 @@
-import { ScrollView, ActivityIndicator, View, Linking, ViewComponent } from "react-native"
-import { Text, Header, SearchBar, Image, FAB, Icon, ListItem } from "@rneui/themed"
+import { ScrollView, ActivityIndicator, View, Linking } from "react-native"
+import { Text, SearchBar, Image, FAB, ListItem } from "@rneui/themed"
 import { Avatar } from "@rneui/base"
 import { useEffect, useState } from "react"
 import axiosConfig from "../config/axios"
@@ -7,18 +7,15 @@ import { Divider, PricingCard, SocialIcon } from "react-native-elements"
 import { ListItemContent } from "@rneui/base/dist/ListItem/ListItem.Content"
 import { ListItemTitle } from "@rneui/base/dist/ListItem/ListItem.Title"
 import { ListItemSubtitle } from "@rneui/base/dist/ListItem/ListItem.Subtitle"
-import { styles } from "./styles"
+import { styles } from "../components/styles"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import SideBar from "./menuSidebar"
-import sair from "../helpers/sair"
 
 const Imagem_URI = 'https://img.freepik.com/fotos-gratis/mulher-jovem-e-bonita-desportiva-a-treinar-no-ginasio_155003-41224.jpg?w=1380&t=st=1696191659~exp=1696192259~hmac=3b5f66d41a5593043816f60d463318b4d034f53cf45072dcd5b1d98793545d23'
 
-export default function Home ({ navigation}) {
+export default function Home ({navigation}) {
     const [produtos, setProdutos] = useState([])
     const [nomeUsuario, setNomeUsuario ] = useState('')
-    const [sideBar, setSidebar] = useState(false)
 
     useEffect (() => {
         axiosConfig.get("/products").then((Response) => {
@@ -32,45 +29,6 @@ export default function Home ({ navigation}) {
     return(
         <ScrollView style={{backgroundColor: 'grey'}}>
             <SafeAreaProvider>
-                <Header
-                    backgroundColor="#ff8c00"
-                    leftComponent={
-                        <View>
-                            <Icon 
-                                name="logout" 
-                                color={"#000"} 
-                                size={34}
-                                onPress={() => {
-                                    sair(navigation)
-                                }}
-                            />
-                        </View>
-                    } 
-                    centerComponent={{ text: 'Ativa Fitness ', style: styles.heading }}
-                    rightComponent={
-                        <View>
-                            <Icon 
-                                name="menu" 
-                                color={"#000"} 
-                                size={34}
-                                onPress={() => {
-                                    if (sideBar == false){
-                                        setSidebar(true)
-                                    }
-                                    else
-                                    {
-                                        setSidebar(false)
-                                    }
-                                }}
-                            />
-                            {
-                                sideBar && (
-                                    <SideBar navigation={navigation} ></SideBar>
-                                ) 
-                            }
-                        </View>
-                    }
-                />
                 <SearchBar
                     placeholder="Pesquisar"
                     containerStyle={{backgroundColor: '#ff8c00'}}

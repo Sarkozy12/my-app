@@ -15,7 +15,7 @@ export default function Login({navigation}) {
         SecureStore.getItemAsync('token')
         .then((token) => {
             if(token != null){
-                navigation.navigate('Home')
+                navigation.navigate('Drawer')
             }
         })
     },[])
@@ -47,7 +47,7 @@ export default function Login({navigation}) {
                     SecureStore.setItemAsync('token','123456')
                     AsyncStorage.setItem('user', 'Administrador')
                     Alert.alert('Login efetuado com sucesso!')
-                    navigation.navigate("Home")
+                    navigation.navigate("Drawer")
                     return
                 }
                 

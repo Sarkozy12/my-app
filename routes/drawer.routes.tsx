@@ -1,6 +1,6 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Feather } from "@expo/vector-icons"
-import Home from "../components/Home";
+import Home from "../screens/Home";
 import User from "../screens/userProfile";
 import Sair from "../helpers/sair";
 import Treino from "../screens/treino";
@@ -9,9 +9,15 @@ const Drawer = createDrawerNavigator();
 
 export default function DrawerRoutes(){
     return(
-        <Drawer.Navigator screenOptions={{title: '', drawerStyle: {backgroundColor: '#ff8c00'}}}>
+        <Drawer.Navigator 
+            screenOptions={{
+                drawerStyle: {backgroundColor: '#ff8c00'},
+                headerStyle: {
+                    backgroundColor: '#ff8c00'
+                }    
+            }}>
             <Drawer.Screen 
-                name="home"
+                name="Home"
                 component={Home}
                 options={{
                     drawerIcon: ({color, size}) => <Feather name="home" color={color} size={size} />,
@@ -20,8 +26,8 @@ export default function DrawerRoutes(){
                     drawerLabel: 'Início'
                 }}
             />
-            <Drawer.Screen 
-                name="perfil"
+            <Drawer.Screen  
+                name="Perfil"
                 component={User}
                 options={{
                     drawerIcon: ({color, size}) => <Feather name="user" color={color} size={size} />,
@@ -31,7 +37,7 @@ export default function DrawerRoutes(){
                 }}
             />
             <Drawer.Screen 
-                name="treino"
+                name="Treino"
                 component={Treino}
                 options={{
                     drawerIcon: ({color, size}) => <Feather name="book" color={color} size={size} />,
@@ -41,7 +47,7 @@ export default function DrawerRoutes(){
                 }}
             />
             <Drawer.Screen 
-                name="logout"
+                name="Logout"
                 component={Sair}
                 options={{
                     drawerIcon: ({color, size}) => <Feather name="log-out" color={color} size={size} />,
