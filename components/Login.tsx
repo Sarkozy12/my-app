@@ -38,7 +38,7 @@ export default function Login({navigation}) {
             console.log(resposta.data.token)
             SecureStore.setItemAsync('token', resposta.data.token)
             SecureStore.setItemAsync('refreshToken', resposta.data.refreshToken)
-            navigation.navigate('Home')
+            navigation.navigate('Drawer')
         }).catch((error) => {
             console.log(error)
             setResultado('Falha ao realizar login!')
