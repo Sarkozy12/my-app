@@ -11,19 +11,28 @@ import { styles } from "../components/styles"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
+import * as SecureStore from 'expo-secure-store';
+
 const Imagem_URI = 'https://img.freepik.com/fotos-gratis/mulher-jovem-e-bonita-desportiva-a-treinar-no-ginasio_155003-41224.jpg?w=1380&t=st=1696191659~exp=1696192259~hmac=3b5f66d41a5593043816f60d463318b4d034f53cf45072dcd5b1d98793545d23'
 
 export default function Home ({navigation}) {
     const [produtos, setProdutos] = useState([])
     const [nomeUsuario, setNomeUsuario ] = useState('')
+    const [tarefa, setTarefas] = useState([])
 
     useEffect (() => {
-        axiosConfig.get("/products").then((Response) => {
-            setProdutos(Response.data.products)
-    })
-    AsyncStorage.getItem('user').then((user) => {
-        setNomeUsuario(user)
-    })
+        SecureStore.getItemAsync('Token')
+        .then((token) => {
+            if(token != null){
+                axiosConfig.get('/task', {
+                    headers:{
+                        Authorization: token
+                    }
+                }).then((resposta) => {
+                    setTarefas(resposta.data)
+                })
+            }
+        })
 }, [])
 
     return(
@@ -72,22 +81,19 @@ export default function Home ({navigation}) {
                     button={{ title: ' Inscreva-se agora', icon: 'person' }}
                 />
                 {
-                    produtos.length <= 0 && (
-                        <Text>Nenhum produto encontrado!</Text>
+                    tarefa.length <= 0 && (
+                        <Text>Nenhuma tarefa encontrad!</Text>
                     )
                 }
                 {
-                    produtos.map((produto) => (
-                        <ListItem key={produto.id} onPress={() => {
-                            navigation.navigate("Produto", {produto})
-                        }}>
-                            <Avatar source={{uri: produto.thumbnail}} />
+                    tarefa.map((tarefa) => (
+                        <ListItem key={tarefa.id}>
                             <ListItemContent>
                                 <ListItemTitle>
-                                    <Text>{produto.title}</Text>
+                                    {tarefa.title}
                                 </ListItemTitle>
                                 <ListItemSubtitle>
-                                    <Text>${produto.price}</Text>
+                                    {tarefa.completed ? 'Finalizada' : 'Em andamento'}
                                 </ListItemSubtitle>
                             </ListItemContent>
                         </ListItem>
