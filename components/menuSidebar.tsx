@@ -1,5 +1,7 @@
 import { View } from "react-native";
-import { Icon, ListItem } from "react-native-elements";
+import sair from "../helpers/sair";
+import { Icon, ListItem } from '@rneui/themed';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 export default function SideBar({navigation}){
