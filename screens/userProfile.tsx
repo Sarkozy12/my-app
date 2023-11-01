@@ -48,7 +48,7 @@ export default function UserProfile({ navigation }) {
         }
       />
 
-      <View style={{ padding: 20 }}>
+      <View style={{ padding: 30 }}>
         {isEditMode ? (
           <>
             <TextInput
@@ -78,7 +78,7 @@ export default function UserProfile({ navigation }) {
           </>
         )}
 
-        <View style={{ width: 100, height: 40, marginTop: 20 }}>
+        <View style={{ width: 110, height: 50, marginTop: 20 }}>
           <Button
             title={isEditMode ? "Salvar" : "Editar"}
             onPress={() => setIsEditMode(!isEditMode)}
@@ -92,7 +92,6 @@ export default function UserProfile({ navigation }) {
 
 const styles = StyleSheet.create({
   textInput: {
-    fontSize: 20,
-    // Outros estilos para campos de entrada, se necessário
+    fontSize: 25,
   },
 });
