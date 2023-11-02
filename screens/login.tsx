@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 import * as Animatable from 'react-native-animatable'
-import axiosConfig from '../../../config/axios';
+import axiosConfig from '../config/axios';
 import * as SecureStore from 'expo-secure-store';
+import { initializeAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import firebaseApp from '../config/firebase';
 
 
-
-export default function Login(navigation) {
+export default function login({navigation}) {
 
 
    const [resultado, setResultado] = useState('Digite seus dados')
@@ -25,21 +26,16 @@ export default function Login(navigation) {
           password: senha
       }
 
-      axiosConfig.post('/auth/login', user)
-      .then((resposta) => {
-          if(resposta.data.error){
-          setResultado(resposta.data.error)
-          return
-          }
-
-          console.log(resposta.data.token)
-          SecureStore.setItemAsync('token', resposta.data.token)
-          SecureStore.setItemAsync('refreshToken', resposta.data.refreshToken)
-          navigation.navigate('Drawer')
-      }).catch((error) => {
-          console.log(error)
-          setResultado('Falha ao realizar login!')
-      })
+      const auth = initializeAuth(firebaseApp)
+        signInWithEmailAndPassword(auth, usuario, senha)
+        .then((resposta) => {
+            console.log(resposta.user)
+            SecureStore.setItemAsync('token', resposta.user.uid)
+            navigation.navigate('Drawer')
+        }).catch((error) => {
+            console.log(error)
+            setResultado('Falha ao realizar login!')
+        })
   }
 
   useEffect(() => {
@@ -64,7 +60,7 @@ export default function Login(navigation) {
 
          <Animatable.Image
          animation='flipInY' 
-         source={require('../../../assets/imagemlogo.png')}
+         source={require('../assets/imagemlogo.png')}
          style={{ width: '100%'}} resizeMode='contain'/>
          
          <Text style={styles.title}>Email</Text>

@@ -7,7 +7,9 @@ import * as SecureStore from 'expo-secure-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import axiosConfig from '../config/axios';
-
+import { initializeApp } from 'firebase/app';
+import { initializeAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import firebaseApp from '../config/firebase';
 
 
 
@@ -30,19 +32,19 @@ export default function Login({navigation}) {
 
         axiosConfig.post('/auth/login', user)
         .then((resposta) => {
-            if(resposta.data.error){
-            setResultado(resposta.data.error)
-            return
-            }
+          if(resposta.data.error){
+          setResultado(resposta.data.error)
+          return
+          }
 
-            console.log(resposta.data.token)
-            SecureStore.setItemAsync('token', resposta.data.token)
-            SecureStore.setItemAsync('refreshToken', resposta.data.refreshToken)
-            navigation.navigate('Drawer')
-        }).catch((error) => {
-            console.log(error)
-            setResultado('Falha ao realizar login!')
-        })
+          console.log(resposta.data.token)
+          SecureStore.setItemAsync('token', resposta.data.token)
+          SecureStore.setItemAsync('refreshToken', resposta.data.refreshToken)
+          navigation.navigate('Drawer')
+      }).catch((error) => {
+          console.log(error)
+          setResultado('Falha ao realizar login!')
+      })
     }
 
     useEffect(() => {
