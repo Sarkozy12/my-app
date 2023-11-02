@@ -71,9 +71,4 @@ export const styles = StyleSheet.create({
       width: '100%',
       flex: 1,
     },
-
-    alert: {
-      marginTop: 20,
-      fontWeight: 'bold',
-    },
   });
