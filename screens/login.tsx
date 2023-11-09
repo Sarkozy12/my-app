@@ -60,7 +60,7 @@ export default function login({navigation}) {
 
          <Animatable.Image
          animation='flipInY' 
-         source={require('../assets/imagemlogo.png')}
+         source={require('../assets/logo.png')}
          style={{ width: '100%'}} resizeMode='contain'/>
          
          <Text style={styles.title}>Email</Text>
