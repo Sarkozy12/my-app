@@ -4,6 +4,7 @@ import Home from "../screens/Home";
 import User from "../screens/userProfile";
 import Sair from "../helpers/sair";
 import Treino from "../screens/treino";
+import Profile from "../screens/userProfi";
 
 const Drawer = createDrawerNavigator();
 
@@ -28,7 +29,7 @@ export default function DrawerRoutes(){
             />
             <Drawer.Screen  
                 name="Perfil"
-                component={User}
+                component={Profile}
                 options={{
                     drawerIcon: ({color, size}) => <Feather name="user" color={color} size={size} />,
                     drawerActiveBackgroundColor: '#ff8c00',

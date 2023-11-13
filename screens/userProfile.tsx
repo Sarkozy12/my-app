@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { ScrollView, View, TextInput, Text, Button, StyleSheet } from 'react-native';
-import { Header, Icon } from '@rneui/themed';
-import SideBar from "../components/menuSidebar";
 
 const adminData = {
   name: 'Admin',
@@ -10,7 +8,6 @@ const adminData = {
 };
 
 export default function UserProfile({ navigation }) {
-  const [sideBar, setSideBar] = useState(false);
   const [userData, setUserData] = useState(adminData);
   const [isEditMode, setIsEditMode] = useState(false);
 
@@ -20,34 +17,6 @@ export default function UserProfile({ navigation }) {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-      <Header
-        backgroundColor="#ff8c00"
-        leftComponent={
-          <View>
-            <Icon
-              name="logout"
-              color="#000"
-              size={34}
-              onPress={() => navigation.goBack()}
-            />
-          </View>
-        }
-        centerComponent={{ text: 'Meu Perfil' }}
-        rightComponent={
-          <View>
-            <Icon
-              name="menu"
-              color="#000"
-              size={34}
-              onPress={() => {
-                setSideBar(!sideBar);
-              }}
-            />
-            {sideBar && <SideBar navigation={navigation}></SideBar>}
-          </View>
-        }
-      />
-
       <View style={{ padding: 30 }}>
         {isEditMode ? (
           <>

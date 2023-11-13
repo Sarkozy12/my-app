@@ -7,10 +7,6 @@ import * as SecureStore from 'expo-secure-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import axiosConfig from '../config/axios';
-import { initializeApp } from 'firebase/app';
-import { initializeAuth, signInWithEmailAndPassword } from 'firebase/auth'
-import firebaseApp from '../config/firebase';
-
 
 
 export default function Login({navigation}) {
@@ -26,8 +22,8 @@ export default function Login({navigation}) {
         }
 
         const user = {
-            email: usuario,
-            password: senha
+            usuario: usuario,
+            senha: senha
         }
 
         axiosConfig.post('/auth/login', user)

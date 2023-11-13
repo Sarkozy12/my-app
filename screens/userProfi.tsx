@@ -19,7 +19,7 @@ import { useNavigation } from "@react-navigation/native";
         <StatusBar backgroundColor={Colors.gray} />
         <View style={{ width: "100%" }}>
           <Image
-            source={require('../../../assets/icoUser.png')}
+            source={require('../assets/icoUser.png')}
             resizeMode="cover"
             style={style.imagecover}
           />
@@ -27,7 +27,7 @@ import { useNavigation } from "@react-navigation/native";
   
         <View style={{ flex: 1, alignItems: "center" }}>
           <Image
-            source={require('../../../assets/icoUser.png')}
+            source={require('../assets/icoUser.png')}
             resizeMode="contain"
             style={style.imagecontain}
           />
