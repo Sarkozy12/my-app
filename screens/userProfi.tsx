@@ -5,23 +5,30 @@ import {
     TouchableOpacity,
     StyleSheet,
   } from "react-native";
-  import React, { useState } from "react";
+  import React, { useEffect, useState } from "react";
   import { StatusBar } from "expo-status-bar";
   import { MaterialIcons } from "@expo/vector-icons";
   import { Colors } from "react-native/Libraries/NewAppScreen";
-import { useNavigation } from "@react-navigation/native";
+  import { useNavigation } from "@react-navigation/native";
+  import { styles } from "../components/styles";
   
-  export default function Profile () {
+  export default function Profile ({navigation}) {
+
+    const toUserData = () => {
+
+      navigation.navigate('UserData')
+    }
+
     const navegation = useNavigation();
   
     return (
-      <View style={style.mainview}>
+      <View style={styles.mainview}>
         <StatusBar backgroundColor={Colors.gray} />
         <View style={{ width: "100%" }}>
           <Image
             source={require('../assets/icoUser.png')}
             resizeMode="cover"
-            style={style.imagecover}
+            style={styles.imagecover}
           />
         </View>
   
@@ -29,7 +36,7 @@ import { useNavigation } from "@react-navigation/native";
           <Image
             source={require('../assets/icoUser.png')}
             resizeMode="contain"
-            style={style.imagecontain}
+            style={styles.imagecontain}
           />
   
           <Text
@@ -107,7 +114,7 @@ import { useNavigation } from "@react-navigation/native";
           </View>
   
           <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity onPress={ () => navegation.navigate("Userdata")} style={style.btnprofile}>
+            <TouchableOpacity onPress={toUserData} style={styles.btnprofile}>
               <Text style={{ color: Colors.white,}}>
                 Edit Profile
               </Text>
@@ -118,47 +125,3 @@ import { useNavigation } from "@react-navigation/native";
     );
 };
 
-const style = StyleSheet.create({
-  
-  photoview:{
-    flex: 1,
-    aspectRatio: 1,
-    margin: 3,
-  },
-
-  image:{ 
-    width: "100%", 
-    height: "100%", 
-    borderRadius: 12 
-  },
-
-  mainview:{ 
-    flex: 1, 
-    backgroundColor: Colors.white, 
-  },
-
-  imagecover:{
-    height: 228,
-    width: "100%",
-  },
-  
-  btnprofile:{
-    width: 124,
-    height: 36,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: '#ff8c00',
-    borderRadius: 10,
-    marginHorizontal: 20,
-  },
-
-  imagecontain:{
-    height: 155,
-    width: 155,
-    borderRadius: 999,
-    borderColor: '#ff8c00',
-    borderWidth: 2,
-    marginTop: -90,
-  }
-
-})

@@ -1,7 +1,6 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Feather } from "@expo/vector-icons"
 import Home from "../screens/Home";
-import User from "../screens/userProfile";
 import Sair from "../helpers/sair";
 import Treino from "../screens/treino";
 import Profile from "../screens/userProfi";

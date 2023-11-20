@@ -7,7 +7,7 @@ export default function Sair({navigation}){
 async function DeleteToken() {
     await SecureStore.deleteItemAsync('token')
     await AsyncStorage.removeItem('user')
-    navigation.navigate('Login')
+    navigation.navigate('login')
 }
     
 
