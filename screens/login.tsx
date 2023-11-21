@@ -6,9 +6,9 @@ import { styles } from '../components/styles';
 import axiosConfig from '../config/axios';
 import * as SecureStore from 'expo-secure-store';
 
+export let id = 0
 
 export default function Login({navigation}) {
-
 
    const [resultado, setResultado] = useState('Digite seus dados')
    const [usuario, setUsuario] = useState('');
@@ -31,8 +31,10 @@ export default function Login({navigation}) {
           setResultado(resposta.data.error)
           return
           }
-
-          console.log(resposta.data.token)
+          console.log('Id: ' + resposta.data.userId)
+          console.log('Token: ' + resposta.data.token)
+          console.log('Refresh Token: ' + resposta.data.refreshToken)
+          id = resposta.data.userId
           SecureStore.setItemAsync('token', resposta.data.token)
           SecureStore.setItemAsync('refreshToken', resposta.data.refreshToken)
           navigation.navigate('Drawer')

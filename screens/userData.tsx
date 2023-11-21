@@ -48,7 +48,6 @@ export default function Userdata({ navigation }) {
           >
             <DatePicker
               mode="calendar"
-              minimumDate={startDate}
               selected={startedDate}
               onDateChanged={handleChangeStartDate}
               onSelectedChange={(date) => setSelectedStartDate(date)}
