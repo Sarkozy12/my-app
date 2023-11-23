@@ -125,7 +125,7 @@ export default function Userdata({ navigation }) {
               <Text>Nome</Text>
               <View style={styles.inputArea} >
                 <TextInput
-                  value={cliente.nome}
+                  defaultValue={cliente.nome}
                   editable={true}
                   onChangeText={value => setName(value)} />
               </View>
@@ -135,7 +135,7 @@ export default function Userdata({ navigation }) {
               <Text>Usuario</Text>
               <View style={styles.inputArea} >
                 <TextInput
-                  value={cliente.usuario}
+                  defaultValue={cliente.usuario}
                   editable={true}
                   onChangeText={value => setEmail(value)} />
               </View>
@@ -145,7 +145,7 @@ export default function Userdata({ navigation }) {
               <Text>Senha</Text>
               <View style={styles.inputArea} >
                 <TextInput
-                  value={cliente.senha}
+                  defaultValue={cliente.senha}
                   editable={true}
                   onChangeText={value => setPassword(value)}
                   secureTextEntry
@@ -157,7 +157,7 @@ export default function Userdata({ navigation }) {
               <Text>Telefone</Text>
               <View style={styles.inputArea} >
                 <TextInput
-                  value={cliente.telefone}
+                  defaultValue={cliente.telefone}
                   editable={true}
                   onChangeText={value => setFone(value)} />
               </View>
@@ -167,7 +167,7 @@ export default function Userdata({ navigation }) {
               <Text>Endereço</Text>
               <View style={styles.inputArea} >
                 <TextInput
-                  value={cliente.endereco}
+                  defaultValue={cliente.endereco}
                   editable={true}
                   onChangeText={value => setLocal(value)} />
               </View>
