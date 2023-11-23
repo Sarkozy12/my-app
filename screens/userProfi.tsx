@@ -3,7 +3,6 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  StyleSheet,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
@@ -12,55 +11,37 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 import { useNavigation } from "@react-navigation/native";
 import { styles } from "../components/styles";
 import axiosConfig from "../config/axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { id } from './login'
-import { ListItem } from "react-native-elements";
-import { ListItemContent } from "@rneui/base/dist/ListItem/ListItem.Content";
+import * as SecureStore from 'expo-secure-store';
+
+import DatePicker, { getFormatedDate } from 'react-native-modern-datepicker';
 
 export default function Profile({ navigation }) {
+  
+  const today = new Date();
+  const startDate = getFormatedDate(today.setDate(today.getDate() + 1), "YYYY/MM/DD");
 
   const toUserData = () => {
-
     navigation.navigate('UserData')
   }
 
-  const [retorno, setRetorno] = useState('')
+  const [cliente, setCliente] = useState([])
 
   async function infoUsuario() {
 
-    const resultado = await AsyncStorage.getItem('id')
-    const header = {
-      refreshToken: resultado
-    }
+    const id = await SecureStore.getItemAsync('id')
+    const token = await SecureStore.getItemAsync('token')
 
-    console.log('antes axios: ' + resultado)
-    axiosConfig.post('/auth/refresh', header)
+    axiosConfig.get('/clientes/' + id)
       .then((resposta) => {
-        if (resposta.data.error) {
-          setRetorno(resposta.data.error)
-          return
-        }
-
+        setCliente(resposta.data)
         console.log(resposta.data)
-      }).catch((error) => {
-        console.log(error)
-        setRetorno('Falha no refresh do Token!')
-        console.log(retorno)
       })
-  }
-  const [clientes, setClientes] = useState([])
-  useEffect(() => {
-    axiosConfig.get('/clientes/' + id) //
-    //axiosConfig.get('/clientes/:' + id) CAMINHO CORRETO PARA UTILIZAR A FUNÇÃO MAP
-      .then((resposta) => {
-        console.log('Resposta get Cliente: ' + resposta.data.nome)
-        setClientes(resposta.data)
-      })
-  }, [])
 
-  /*useEffect(() => {
+  }
+
+  useEffect(() => {
     infoUsuario()
-  })*/
+  }, [])
 
   const navegation = useNavigation();
 
@@ -85,7 +66,7 @@ export default function Profile({ navigation }) {
 
           <Text
             style={{ color: Colors.black, marginVertical: 8, }}>
-            Nome Aleatorio
+            {cliente ? cliente.nome : ''}
           </Text>
 
           <View
@@ -101,7 +82,7 @@ export default function Profile({ navigation }) {
                 marginLeft: 4,
               }}
             >
-              Endrereço, qualquer
+              {cliente ? cliente.endereco : ''}
             </Text>
           </View>
 
@@ -118,7 +99,7 @@ export default function Profile({ navigation }) {
                 marginHorizontal: 10,
               }}>
               <Text style={{ color: Colors.black, }}>
-                21
+              {cliente ? (parseInt(startDate)-parseInt(cliente.nascimento)) : ''}
               </Text>
               <Text style={{ color: Colors.black, }}>
                 Idade
@@ -133,11 +114,11 @@ export default function Profile({ navigation }) {
               }}>
               <Text
                 style={{ color: Colors.black, }}>
-                55
+                {cliente ? cliente.peso : ''}
               </Text>
               <Text
                 style={{ color: Colors.black, }}>
-                Pesso
+                Peso
               </Text>
             </View>
 
@@ -148,17 +129,17 @@ export default function Profile({ navigation }) {
                 marginHorizontal: 10,
               }}>
               <Text style={{ color: Colors.black, }}>
-                23/05
+                {cliente ? cliente.nascimento : ''}
               </Text>
               <Text
                 style={{ color: Colors.black, }}>
-                Aniversario
+                Aniversário
               </Text>
             </View>
           </View>
 
           <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity onPress={infoUsuario} style={styles.btnprofile}>
+            <TouchableOpacity onPress={toUserData} style={styles.btnprofile}>
               <Text style={{ color: Colors.white, }}>
                 Edit Profile
               </Text>
@@ -166,22 +147,6 @@ export default function Profile({ navigation }) {
           </View>
         </View>
       </View>
-      {
-        clientes.length <= 0 && (
-          <Text>Carregando...</Text>
-        )
-      }
-      {
-        /*clientes.map((cliente) => (
-          <ListItem key={cliente.id}>
-            <ListItemContent>
-              <Text>{cliente.nome}</Text>
-              <Text>{cliente.nascimento}</Text>
-            </ListItemContent>
-          </ListItem>
-        ))*/
-      }
-
     </>
   );
 };

@@ -26,17 +26,17 @@ export default function Login({navigation}) {
       }
 
       axiosConfig.post('/auth/login', user)
-        .then((resposta) => {
+        .then(async (resposta) => {
           if(resposta.data.error){
           setResultado(resposta.data.error)
           return
           }
-          console.log('Id: ' + resposta.data.userId)
+          console.log('Id: ' + resposta.data.userId.toString())
           console.log('Token: ' + resposta.data.token)
           console.log('Refresh Token: ' + resposta.data.refreshToken)
-          id = resposta.data.userId
-          SecureStore.setItemAsync('token', resposta.data.token)
-          SecureStore.setItemAsync('refreshToken', resposta.data.refreshToken)
+          await SecureStore.setItemAsync('id', resposta.data.userId.toString())
+          await SecureStore.setItemAsync('token', resposta.data.token)
+          await SecureStore.setItemAsync('refreshToken', resposta.data.refreshToken)
           navigation.navigate('Drawer')
       }).catch((error) => {
           console.log(error)

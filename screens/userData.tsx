@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, TextInput, Modal } from 'react-native';
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
@@ -6,8 +6,29 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { MaterialIcons } from "@expo/vector-icons"
 import DatePicker, { getFormatedDate } from 'react-native-modern-datepicker';
 import { styles } from '../components/styles';
+import * as SecureStore from 'expo-secure-store';
+import axiosConfig from '../config/axios';
 
 export default function Userdata({ navigation }) {
+
+  const [cliente, setCliente] = useState([])
+
+  async function infoUsuario() {
+
+    const id = await SecureStore.getItemAsync('id')
+    const token = await SecureStore.getItemAsync('token')
+
+    axiosConfig.get('/clientes/' + id)
+      .then((resposta) => {
+        setCliente(resposta.data)
+        console.log(resposta.data)
+      })
+
+  }
+
+  useEffect(() => {
+    infoUsuario()
+  }, [])
 
   const [name, setName] = useState("Nome Temporario");
   const [email, setEmail] = useState("email@email.com");
@@ -72,7 +93,6 @@ export default function Userdata({ navigation }) {
   }
 
   const toUserProfile = () => {
-
     navigation.navigate('Drawer')
   }
 
@@ -105,17 +125,17 @@ export default function Userdata({ navigation }) {
               <Text>Nome</Text>
               <View style={styles.inputArea} >
                 <TextInput
-                  value={name}
+                  value={cliente.nome}
                   editable={true}
                   onChangeText={value => setName(value)} />
               </View>
             </View>
 
             <View style={{ flexDirection: "column", marginBottom: 6 }} >
-              <Text>Email</Text>
+              <Text>Usuario</Text>
               <View style={styles.inputArea} >
                 <TextInput
-                  value={email}
+                  value={cliente.usuario}
                   editable={true}
                   onChangeText={value => setEmail(value)} />
               </View>
@@ -125,7 +145,7 @@ export default function Userdata({ navigation }) {
               <Text>Senha</Text>
               <View style={styles.inputArea} >
                 <TextInput
-                  value={password}
+                  value={cliente.senha}
                   editable={true}
                   onChangeText={value => setPassword(value)}
                   secureTextEntry
@@ -137,7 +157,7 @@ export default function Userdata({ navigation }) {
               <Text>Telefone</Text>
               <View style={styles.inputArea} >
                 <TextInput
-                  value={fone}
+                  value={cliente.telefone}
                   editable={true}
                   onChangeText={value => setFone(value)} />
               </View>
@@ -147,7 +167,7 @@ export default function Userdata({ navigation }) {
               <Text>Endereço</Text>
               <View style={styles.inputArea} >
                 <TextInput
-                  value={local}
+                  value={cliente.endereco}
                   editable={true}
                   onChangeText={value => setLocal(value)} />
               </View>
@@ -158,7 +178,7 @@ export default function Userdata({ navigation }) {
               <TouchableOpacity
                 onPress={handleOnPressStartDate}
                 style={styles.dataStyle}>
-                <Text>{selectedStartDate}</Text>
+                <Text>{cliente.nascimento}</Text>
               </TouchableOpacity>
             </View>
 
