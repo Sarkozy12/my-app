@@ -8,10 +8,14 @@ import DatePicker, { getFormatedDate } from 'react-native-modern-datepicker';
 import { styles } from '../components/styles';
 import * as SecureStore from 'expo-secure-store';
 import axiosConfig from '../config/axios';
+import { Overlay } from '@rneui/themed';
+import { Icon } from 'react-native-elements';
+
 
 export default function Userdata({ navigation }) {
 
   const [cliente, setCliente] = useState([])
+  const [visivel, setVisivel] = useState(false)
 
   async function infoUsuario() {
 
@@ -21,20 +25,46 @@ export default function Userdata({ navigation }) {
     axiosConfig.get('/clientes/' + id)
       .then((resposta) => {
         setCliente(resposta.data)
-        console.log(resposta.data)
+        console.log(resposta)
       })
 
   }
 
+  const atualizar = () => {
+
+    if (name === '' || email === '' || password === '' || fone === '' || local === '') {
+      notification()
+    }
+    console.log(id)
+
+    const test = teste => axiosConfig.put('clientes/' + id, teste)
+      .then(async (resposta) => {
+        if (resposta.data.error) {
+          setCliente(resposta.data.error)
+          return
+        }
+      }).catch((error) => {
+        console.log(error)
+
+      })
+  }
+
   useEffect(() => {
     infoUsuario()
+    setName(cliente.nome)
+    setEmail(cliente.usuario)
+    setPassword(cliente.senha)
+    setFone(cliente.telefone)
+    setLocal(cliente.endereco)
+    setId(cliente.id)
   }, [])
 
-  const [name, setName] = useState("Nome Temporario");
-  const [email, setEmail] = useState("email@email.com");
-  const [password, setPassword] = useState("123abc");
-  const [fone, setFone] = useState("000000000");
-  const [local, setLocal] = useState("Cidade X, Rua X, Numero X.");
+  const [id, setId] = useState("")
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [fone, setFone] = useState("");
+  const [local, setLocal] = useState("");
   const navegation = useNavigation();
   const [openStartDatePicker, setOpenStartDatePicker] = useState(false);
   const today = new Date();
@@ -96,6 +126,11 @@ export default function Userdata({ navigation }) {
     navigation.navigate('Drawer')
   }
 
+  const notification = () => {
+    setVisivel(!visivel)
+  }
+
+
   return (
     <>
       <View style={styles.view}>
@@ -118,6 +153,13 @@ export default function Userdata({ navigation }) {
                 animation='flipInY'
               />
             </TouchableOpacity>
+          </View>
+
+          <View>
+            <Overlay isVisible={visivel} onBackdropPress={notification}>
+              <Icon name='warning' size={50}></Icon>
+              <Text style={styles.footerText}>PREENCHA TODOS OS CAMPOS!</Text>
+            </Overlay>
           </View>
 
           <View>
@@ -184,7 +226,7 @@ export default function Userdata({ navigation }) {
 
           </View>
 
-          <TouchableOpacity onPress={toUserProfile}
+          <TouchableOpacity onPress={atualizar}
             style={styles.btnSave}>
             <Text>Save Change</Text>
           </TouchableOpacity>
