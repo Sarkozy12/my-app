@@ -30,24 +30,31 @@ export default function Userdata({ navigation }) {
 
   }
 
-  const atualizar = () => {
-
-    if (name === '' || email === '' || password === '' || fone === '' || local === '') {
-      notification()
+  async function putCliente() {
+ 
+    const id = await SecureStore.getItemAsync('id')
+    const token = await SecureStore.getItemAsync('token')
+ 
+    axiosConfig.put('/clientes/' + id, {
+      nome: name,
+      peso: peso,
+      altura: altura,
+      endereco: local,
+      telefone: fone,
+      usuario: email
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token
+      }
     }
-    console.log(id)
-
-    const test = teste => axiosConfig.put('clientes/' + id, teste)
-      .then(async (resposta) => {
-        if (resposta.data.error) {
-          setCliente(resposta.data.error)
-          return
-        }
-      }).catch((error) => {
-        console.log(error)
-
-      })
-  }
+    )
+    .then((resposta) => {
+      setCliente(resposta.data)
+      console.log(resposta.data)
+      toUserProfile()
+  })
+}
 
   useEffect(() => {
     infoUsuario()
@@ -61,6 +68,8 @@ export default function Userdata({ navigation }) {
 
   const [id, setId] = useState("")
   const [name, setName] = useState("");
+  const [peso, setPeso] = useState(''); 
+  const [altura, setAltura] = useState('');
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fone, setFone] = useState("");
@@ -226,7 +235,7 @@ export default function Userdata({ navigation }) {
 
           </View>
 
-          <TouchableOpacity onPress={atualizar}
+          <TouchableOpacity onPress={putCliente}
             style={styles.btnSave}>
             <Text>Save Change</Text>
           </TouchableOpacity>
