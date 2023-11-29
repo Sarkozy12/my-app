@@ -193,18 +193,6 @@ export default function Userdata({ navigation }) {
             </View>
 
             <View style={{ flexDirection: "column", marginBottom: 6 }} >
-              <Text>Senha</Text>
-              <View style={styles.inputArea} >
-                <TextInput
-                  defaultValue={cliente.senha}
-                  editable={true}
-                  onChangeText={value => setPassword(value)}
-                  secureTextEntry
-                />
-              </View>
-            </View>
-
-            <View style={{ flexDirection: "column", marginBottom: 6 }} >
               <Text>Telefone</Text>
               <View style={styles.inputArea} >
                 <TextInput
