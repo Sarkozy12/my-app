@@ -41,7 +41,7 @@ export default function Trening({ navigation }) {
   useEffect(() => {
 
     infoTreino()
-  }, [])
+  })
 
   const navegation = useNavigation();
 

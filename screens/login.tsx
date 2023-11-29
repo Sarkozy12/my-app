@@ -83,9 +83,6 @@ export default function Login({navigation}) {
           <TouchableOpacity onPress={logar}  style={styles.button}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity> 
-          <TouchableOpacity style={styles.buttonRegister}>
-            <Text style={styles.registerText}>Cadastre-se</Text>
-          </TouchableOpacity>
           <Text style={styles.buttonRegister}>{resultado}</Text>
 
       </Animatable.View>

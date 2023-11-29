@@ -66,23 +66,6 @@ export default function Home({ navigation }) {
                     info={['Aprenda e pratique natação já!', 'Para diversas idades.']}
                     button={{ title: ' Inscreva-se agora', icon: 'person' }}
                 />
-                {
-                    aulas.length <= 0 && (
-                        <Text>Nenhuma aula encontrada!</Text>
-                    )
-                }
-                {
-                    aulas.map((aula) => (
-                        <ListItem key={aula.id}>
-                            <ListItemContent>
-                                <Text>{aula.descricao}</Text>
-                                <Text>{aula.nomeAula}</Text>
-                                <Text>{aula.limiteAlunos}</Text>
-                                <Text>{aula.data}</Text>
-                            </ListItemContent>
-                        </ListItem>
-                    ))
-                }
                 <Divider
                     width={2}
                     color="#000"
