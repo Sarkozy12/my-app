@@ -64,6 +64,8 @@ export default function Userdata({ navigation }) {
     setFone(cliente.telefone)
     setLocal(cliente.endereco)
     setId(cliente.id)
+    setPeso(cliente.peso)
+    setAltura(cliente.altura)
   }, [])
 
   const [id, setId] = useState("")
@@ -213,12 +215,32 @@ export default function Userdata({ navigation }) {
             </View>
 
             <View style={{ flexDirection: "column", marginBottom: 6, }}>
-              <Text>Data de Aniversario</Text>
+              <Text>Data de Nascimento</Text>
               <TouchableOpacity
                 onPress={handleOnPressStartDate}
                 style={styles.dataStyle}>
                 <Text>{cliente.nascimento}</Text>
               </TouchableOpacity>
+            </View>
+
+            <View style={{ flexDirection: "column", marginBottom: 6 }} >
+              <Text>Peso</Text>
+              <View style={styles.inputArea} >
+                <TextInput
+                  defaultValue={cliente.peso}
+                  editable={true}
+                  onChangeText={value => toString(setPeso(value))} />
+              </View>
+            </View>
+
+            <View style={{ flexDirection: "column", marginBottom: 6}}>
+              <Text>Altura</Text>
+              <View style={styles.inputArea}>
+                <TextInput
+                defaultValue={cliente.altura}
+                editable={true}
+                onChangeText={value => toString(setAltura(value))}/>
+              </View>
             </View>
 
           </View>

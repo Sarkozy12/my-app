@@ -41,7 +41,7 @@ export default function Profile({ navigation }) {
 
   useEffect(() => {
     infoUsuario()
-  },)
+  },[])
 
   const navegation = useNavigation();
 
