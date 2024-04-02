@@ -1,9 +1,10 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { Feather } from "@expo/vector-icons"
+import { Feather, AntDesign } from "@expo/vector-icons"
 import Home from "../screens/Home";
 import Sair from "../helpers/sair";
 import Treino from "../screens/TreinoT";
 import Profile from "../screens/userProfi";
+import QrCode from "../screens/GerarQrCode";
 
 const Drawer = createDrawerNavigator();
 
@@ -44,6 +45,16 @@ export default function DrawerRoutes(){
                     drawerActiveBackgroundColor: '#ff8c00',
                     drawerActiveTintColor: 'white',
                     drawerLabel: 'Treino'
+                }}
+            />
+            <Drawer.Screen 
+                name="Acesso"
+                component={QrCode}
+                options={{
+                    drawerIcon: ({color, size}) => <AntDesign name="qrcode" color={color} size={size} />,
+                    drawerActiveBackgroundColor: '#ff8c00',
+                    drawerActiveTintColor: 'white',
+                    drawerLabel: 'Acesso'
                 }}
             />
             <Drawer.Screen 

@@ -1,6 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DrawerRoutes from './drawer.routes';
-import Login from '../components/Login';
 import login from '../screens/login';
 import Userdata from '../screens/userData';
 import DetailTask from '../screens/DetailTask'
