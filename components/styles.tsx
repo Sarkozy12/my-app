@@ -241,5 +241,17 @@ export const styles = StyleSheet.create({
       marginVertical: 6,
       justifyContent: "center",
       paddingLeft: 8,
+  },
+
+  loaderContainer: {
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center"
+  },
+
+  loader: {
+    width: "100%"
   }
   });
